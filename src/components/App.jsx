@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { Routes, Route } from 'react-router-dom';
+import { useEffect, lazy } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchContacts } from 'redux/operations';
 import { selectError, selectIsLoading } from '../redux/selectors';
@@ -11,20 +12,39 @@ import { Container, MainTitle, SearchTitle } from './App.styled';
 import { Loader } from './Loader/Loader';
 import { Error } from './Error/Error';
 
+import { Layout } from './Layout';
+// import { HomePage } from '../pages/Home';
+// import { RegisterPage } from '../pages/Register';
+// import { LoginPage } from '../pages/Login';
+// import { ContactsPage } from '../pages/Contacts';
+
+const HomePage = lazy(() => import('../pages/Home'));
+const RegisterPage = lazy(() => import('../pages/Register'));
+const LoginPage = lazy(() => import('../pages/Login'));
+const ContactsPage = lazy(() => import('../pages/Contacts'));
+
 export const App = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
+  // const isLoading = useSelector(selectIsLoading);
+  // const error = useSelector(selectError);
 
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchContacts());
+  // }, [dispatch]);
 
   return (
     <>
-      <GlobalStyle />
-      <Container>
+      {/* <GlobalStyle /> */}
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<HomePage />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/contacts" element={<ContactsPage />} />
+        </Route>
+      </Routes>
+      {/* <Container>
         <MainTitle>Phonebook</MainTitle>
         <ContactForm />
         <SearchTitle>Contacts</SearchTitle>
@@ -33,7 +53,7 @@ export const App = () => {
         {isLoading && !error && <Loader />}
         {error && <Error />}
         {!isLoading && <ListContacts />}
-      </Container>
+      </Container> */}
     </>
   );
 };
