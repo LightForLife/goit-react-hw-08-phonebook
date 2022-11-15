@@ -35,18 +35,31 @@ export const RegisterForm = () => {
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         <Form>
           <label htmlFor={nameInputId}>Username</label>
-          <Field id="userName" name="userName" placeholder="Jane" />
+          <Field
+            id={nameInputId}
+            name="userName"
+            placeholder="Jane"
+            type="text"
+            autoComplete="off"
+          />
 
           <label htmlFor={emailInputId}>Password</label>
           <Field
-            id="email"
-            name="email"
-            placeholder="jane@acme.com"
-            type="email"
+            id={emailInputId}
+            name="password"
+            placeholder="Doe"
+            type="password"
+            autoComplete="off"
           />
 
           <label htmlFor={passwordInputId}>Email</label>
-          <Field id="password" name="********" placeholder="Doe" />
+          <Field
+            id={passwordInputId}
+            name="email"
+            placeholder="jane@acme.com"
+            type="email"
+            autoComplete="off"
+          />
           <button type="submit">Register</button>
         </Form>
       </Formik>

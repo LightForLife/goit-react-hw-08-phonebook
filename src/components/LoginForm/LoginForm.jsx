@@ -2,7 +2,6 @@ import { Formik, Field, Form } from 'formik';
 import { nanoid } from 'nanoid';
 
 export const LoginForm = () => {
-  const nameInputId = nanoid();
   const emailInputId = nanoid();
   const passwordInputId = nanoid();
 
@@ -10,7 +9,6 @@ export const LoginForm = () => {
   // const contacts = useSelector(selectContacts);
 
   const initialValues = {
-    userName: '',
     email: '',
     password: '',
   };
@@ -35,15 +33,21 @@ export const LoginForm = () => {
         <Form>
           <label htmlFor={emailInputId}>Password</label>
           <Field
-            id="email"
-            name="email"
-            placeholder="jane@acme.com"
-            type="email"
+            id={emailInputId}
+            name="password"
+            placeholder="Doe"
+            type="password"
+            autoComplete="off"
           />
 
           <label htmlFor={passwordInputId}>Email</label>
-          <Field id="password" name="********" placeholder="Doe" />
-
+          <Field
+            id={passwordInputId}
+            name="email"
+            placeholder="jane@acme.com"
+            type="email"
+            autoComplete="off"
+          />
           <button type="submit">Log In</button>
         </Form>
       </Formik>
