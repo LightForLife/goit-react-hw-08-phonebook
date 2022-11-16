@@ -18,10 +18,11 @@ export default function Contacts() {
   return (
     <div>
       <ContactForm />
-      <ListContacts />
+
       <SearchTitle>Contacts</SearchTitle>
       <Filter />
       <div>{isLoading && 'Request in progress...'}</div>
+      <ListContacts />
     </div>
   );
 }

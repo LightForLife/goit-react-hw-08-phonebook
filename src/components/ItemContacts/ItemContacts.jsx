@@ -21,7 +21,7 @@ export const ItemContacts = ({ contact }) => {
           <FaUserTimes size={18} />
         </DeleteContactBtn>
       </NameContact>
-      <TelContact>{contact.phone}</TelContact>
+      <TelContact>{contact.number}</TelContact>
     </ItemContact>
   );
 };

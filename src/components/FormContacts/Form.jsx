@@ -36,8 +36,10 @@ export const ContactForm = () => {
 
     const body = {
       name: value.name,
-      phone: value.number,
+      number: value.number,
     };
+    console.log(value.name);
+    console.log(value.number);
 
     dispatch(addContact(body));
 

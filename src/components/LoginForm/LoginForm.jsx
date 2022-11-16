@@ -16,9 +16,6 @@ export const LoginForm = () => {
   };
 
   const handleSubmit = (value, actions) => {
-    console.log(value.email);
-    console.log(value.password);
-
     const body = {
       email: value.email,
       password: value.password,
