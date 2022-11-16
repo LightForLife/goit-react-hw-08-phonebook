@@ -1,8 +1,17 @@
+import { useDispatch } from 'react-redux';
+import { logOut } from 'redux/auth/operations';
+import { useAuth } from 'hooks/useAuth';
+
 export const UserMenu = () => {
+  const dispatch = useDispatch();
+  const { user } = useAuth();
+
+  const handleLogOut = () => dispatch(logOut());
+
   return (
     <div>
-      <p>mango@mail.com</p>
-      <button type="button" onClick={() => console.log('Click logout')}>
+      <p>{user.email}</p>
+      <button type="button" onClick={handleLogOut}>
         Logout
       </button>
     </div>

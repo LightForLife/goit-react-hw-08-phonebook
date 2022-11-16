@@ -1,11 +1,13 @@
+import { useDispatch } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 import { nanoid } from 'nanoid';
+import { logIn } from 'redux/auth/operations';
 
 export const LoginForm = () => {
   const emailInputId = nanoid();
   const passwordInputId = nanoid();
 
-  // const dispatch = useDispatch();
+  const dispatch = useDispatch();
   // const contacts = useSelector(selectContacts);
 
   const initialValues = {
@@ -16,12 +18,13 @@ export const LoginForm = () => {
   const handleSubmit = (value, actions) => {
     console.log(value.email);
     console.log(value.password);
-    // const body = {
-    //   name: value.name,
-    //   phone: value.number,
-    // };
 
-    // dispatch(addContact(body));
+    const body = {
+      email: value.email,
+      password: value.password,
+    };
+
+    dispatch(logIn(body));
 
     actions.resetForm();
   };
