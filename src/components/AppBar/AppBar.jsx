@@ -3,7 +3,6 @@ import { AuthNav } from 'components/AuthNav/AuthNav';
 import { Header } from './AppBar.styled';
 import { useAuth } from 'hooks/useAuth';
 import { UserMenu } from '../UserMenu/UserMenu';
-import { useSelector } from 'react-redux';
 
 export const AppBar = () => {
   const { isLoggedIn } = useAuth();

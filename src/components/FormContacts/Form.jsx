@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts } from 'redux/selectors';
+import { selectContacts } from 'redux/contacts/selectors';
 import { Formik } from 'formik';
 import { nanoid } from 'nanoid';
-import { addContact } from 'redux/operations';
+import { addContact } from 'redux/contacts/operations';
 import { FormError, schema } from 'components/Validation/Validation';
 import {
   FormBox,
@@ -38,8 +38,6 @@ export const ContactForm = () => {
       name: value.name,
       number: value.number,
     };
-    console.log(value.name);
-    console.log(value.number);
 
     dispatch(addContact(body));
 

@@ -31,21 +31,21 @@ export const LoginForm = () => {
       <h1>Sign Up</h1>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
         <Form>
-          <label htmlFor={emailInputId}>Password</label>
+          <label htmlFor={emailInputId}>Email</label>
           <Field
             id={emailInputId}
-            name="password"
-            placeholder="Doe"
-            type="password"
-            autoComplete="off"
-          />
-
-          <label htmlFor={passwordInputId}>Email</label>
-          <Field
-            id={passwordInputId}
             name="email"
             placeholder="jane@acme.com"
             type="email"
+            autoComplete="on"
+          />
+
+          <label htmlFor={passwordInputId}>Password</label>
+          <Field
+            id={passwordInputId}
+            name="password"
+            placeholder="Doe"
+            type="password"
             autoComplete="off"
           />
           <button type="submit">Log In</button>

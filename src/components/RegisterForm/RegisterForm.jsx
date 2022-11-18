@@ -45,21 +45,21 @@ export const RegisterForm = () => {
             autoComplete="off"
           />
 
-          <label htmlFor={emailInputId}>Password</label>
+          <label htmlFor={emailInputId}>Email</label>
           <Field
             id={emailInputId}
-            name="password"
-            placeholder="Doe"
-            type="password"
-            autoComplete="off"
-          />
-
-          <label htmlFor={passwordInputId}>Email</label>
-          <Field
-            id={passwordInputId}
             name="email"
             placeholder="jane@acme.com"
             type="email"
+            autoComplete="on"
+          />
+
+          <label htmlFor={passwordInputId}>Password</label>
+          <Field
+            id={passwordInputId}
+            name="password"
+            placeholder="Doe"
+            type="password"
             autoComplete="off"
           />
           <button type="submit">Register</button>
