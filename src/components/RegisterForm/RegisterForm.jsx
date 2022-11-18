@@ -24,8 +24,6 @@ export const RegisterForm = () => {
       password: value.password,
     };
 
-    console.log(body);
-
     dispatch(register(body));
 
     actions.resetForm();
