@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isAnyOf } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { logIn, register, logOut, refreshUser } from './operations';
@@ -8,6 +8,8 @@ const authInitialState = {
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
+  registerIsLoading: false,
+  registerError: null,
 };
 
 const authSlice = createSlice({
@@ -15,44 +17,53 @@ const authSlice = createSlice({
   initialState: authInitialState,
   extraReducers: builder =>
     builder
-      .addCase(register.pending, state => {
-        state.isLoading = true;
-      })
+
       .addCase(register.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
       })
-      .addCase(register.rejected, (state, action) => state)
 
-      .addCase(logIn.pending, state => {
-        state.isLoading = true;
-      })
       .addCase(logIn.fulfilled, (state, action) => {
         state.user = action.payload.user;
         state.token = action.payload.token;
         state.isLoggedIn = true;
       })
-      .addCase(logIn.rejected, state => state)
 
-      .addCase(logOut.pending, state => {
-        state.isLoading = true;
-      })
       .addCase(logOut.fulfilled, state => {
         state.user = { name: null, email: null };
         state.token = null;
         state.isLoggedIn = false;
       })
-      .addCase(logOut.rejected, state => state)
 
-      .addCase(refreshUser.pending, state => {
-        state.isLoading = true;
-      })
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isLoggedIn = true;
       })
-      .addCase(refreshUser.rejected, state => state),
+
+      .addMatcher(
+        isAnyOf(
+          register.rejected,
+          logIn.rejected,
+          logOut.rejected,
+          refreshUser.rejected
+        ),
+        state => {
+          state.isLoggedIn = true;
+        }
+      )
+      .addMatcher(
+        isAnyOf(
+          register.pending,
+          logIn.pending,
+          logOut.pending,
+          refreshUser.pending
+        ),
+        (state, action) => {
+          state.registerIsLoading = false;
+          state.registerError = action.payload;
+        }
+      ),
 });
 
 const authPersistConfig = {
