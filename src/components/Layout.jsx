@@ -1,16 +1,16 @@
 import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
 
-import { AppBar } from './AppBar/AppBar';
+import { Header } from './AppBar/Header';
 import { Container } from './App.styled';
 import { GlobalStyle } from 'styles/GlobalStyles';
 
 export const Layout = () => {
   return (
     <>
-      <GlobalStyle />
+      {/* <GlobalStyle /> */}
       <Container>
-        <AppBar />
+        <Header />
         <Suspense fallback={null}>
           <Outlet />
         </Suspense>

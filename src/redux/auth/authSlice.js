@@ -39,31 +39,31 @@ const authSlice = createSlice({
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isLoggedIn = true;
-      })
+      }),
 
-      .addMatcher(
-        isAnyOf(
-          register.rejected,
-          logIn.rejected,
-          logOut.rejected,
-          refreshUser.rejected
-        ),
-        state => {
-          state.isLoggedIn = true;
-        }
-      )
-      .addMatcher(
-        isAnyOf(
-          register.pending,
-          logIn.pending,
-          logOut.pending,
-          refreshUser.pending
-        ),
-        (state, action) => {
-          state.registerIsLoading = false;
-          state.registerError = action.payload;
-        }
-      ),
+  // .addMatcher(
+  //   isAnyOf(
+  //     register.rejected,
+  //     logIn.rejected,
+  //     logOut.rejected,
+  //     refreshUser.rejected
+  //   ),
+  //   state => {
+  //     state.isLoggedIn = true;
+  //   }
+  // )
+  // .addMatcher(
+  //   isAnyOf(
+  //     register.pending,
+  //     logIn.pending,
+  //     logOut.pending,
+  //     refreshUser.pending
+  //   ),
+  //   (state, action) => {
+  //     state.registerIsLoading = false;
+  //     state.registerError = action.payload;
+  //   }
+  // ),
 });
 
 const authPersistConfig = {

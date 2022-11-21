@@ -2,6 +2,7 @@ import { useDispatch } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 import { nanoid } from 'nanoid';
 import { register } from 'redux/auth/operations';
+import { Box, TextField } from '@mui/material';
 
 export const RegisterForm = () => {
   const nameInputId = nanoid();
@@ -31,11 +32,20 @@ export const RegisterForm = () => {
 
   return (
     <div>
-      <h1>Sign Up</h1>
       <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-        <Form>
-          <label htmlFor={nameInputId}>Username</label>
-          <Field
+        <Box
+          component="form"
+          sx={{
+            '& .MuiTextField-root': { m: 1, width: '25ch' },
+          }}
+          noValidate
+          autoComplete="off"
+        >
+          <label htmlFor={nameInputId}></label>
+          <TextField
+            // id="outlined-basic"
+            label="Username"
+            variant="outlined"
             id={nameInputId}
             name="userName"
             placeholder="Jane"
@@ -43,25 +53,29 @@ export const RegisterForm = () => {
             autoComplete="off"
           />
 
-          <label htmlFor={emailInputId}>Email</label>
-          <Field
+          <label htmlFor={emailInputId}></label>
+          <TextField
             id={emailInputId}
+            label="Email"
+            variant="outlined"
             name="email"
             placeholder="jane@acme.com"
             type="email"
             autoComplete="on"
           />
 
-          <label htmlFor={passwordInputId}>Password</label>
-          <Field
+          <label htmlFor={passwordInputId}></label>
+          <TextField
             id={passwordInputId}
+            label="Password"
+            variant="outlined"
             name="password"
-            placeholder="Doe"
+            // placeholder="Doe"
             type="password"
-            autoComplete="off"
+            autoComplete="current-password"
           />
           <button type="submit">Register</button>
-        </Form>
+        </Box>
       </Formik>
     </div>
   );
