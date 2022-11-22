@@ -8,7 +8,14 @@ import {
   OutlinedInput,
   InputAdornment,
   IconButton,
+  Grid,
+  Paper,
+  Avatar,
+  Typography,
+  Button,
+  Link,
 } from '@mui/material';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
@@ -17,28 +24,6 @@ import { nanoid } from 'nanoid';
 import { logIn } from 'redux/auth/operations';
 
 export const LoginForm = () => {
-  const emailInputId = nanoid();
-  const passwordInputId = nanoid();
-
-  const dispatch = useDispatch();
-  // const contacts = useSelector(selectContacts);
-
-  const initialValues = {
-    email: '',
-    password: '',
-  };
-
-  const handleSubmit = (value, actions) => {
-    const body = {
-      email: value.email,
-      password: value.password,
-    };
-
-    dispatch(logIn(body));
-
-    actions.resetForm();
-  };
-
   const [values, setValues] = React.useState({
     amount: '',
     password: '',
@@ -46,6 +31,26 @@ export const LoginForm = () => {
     weightRange: '',
     showPassword: false,
   });
+
+  const emailInputId = nanoid();
+  const passwordInputId = nanoid();
+
+  const dispatch = useDispatch();
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    const form = event.currentTarget;
+
+    const body = {
+      email: form.elements.email.value,
+      password: form.elements.password.value,
+    };
+    console.log(body);
+
+    dispatch(logIn(body));
+    form.reset();
+    setValues({ ...values, password: '' });
+  };
 
   const handleChange = prop => event => {
     setValues({ ...values, [prop]: event.target.value });
@@ -63,64 +68,88 @@ export const LoginForm = () => {
   };
 
   return (
-    <div>
-      <h1>Sign Up</h1>
-      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+    <>
+      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <Box
-          component="form"
           sx={{
-            '& .MuiTextField-root': { m: 1, width: '25ch' },
+            py: 8,
+            px: 4,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
           }}
-          noValidate
-          autoComplete="off"
         >
-          <label htmlFor={emailInputId}></label>
-          <TextField
-            id={emailInputId}
-            label="Email"
-            variant="outlined"
-            name="email"
-            placeholder="jane@acme.com"
-            type="email"
-            autoComplete="on"
-          />
-          <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
-            <InputLabel htmlFor={passwordInputId}>Password</InputLabel>
-            <OutlinedInput
-              id={passwordInputId}
-              type={values.showPassword ? 'text' : 'password'}
-              value={values.password}
-              onChange={handleChange('password')}
-              autoComplete="current-password"
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    onMouseDown={handleMouseDownPassword}
-                    edge="end"
-                  >
-                    {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              }
-              label="Password"
-            />
-          </FormControl>
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign in
+          </Typography>
 
-          {/* <label htmlFor={passwordInputId}></label>
-          <TextField
-            id={passwordInputId}
-            label="Password"
-            variant="outlined"
-            name="password"
-            // placeholder="Doe"
-            type="password"
-            autoComplete="current-password"
-          /> */}
-          <button type="submit">Log In</button>
+          <Box
+            onSubmit={handleSubmit}
+            component="form"
+            sx={{ mt: 4, mb: 1 }}
+            noValidate
+            autoComplete="off"
+          >
+            <TextField
+              fullWidth
+              id={emailInputId}
+              label="Email"
+              variant="outlined"
+              name="email"
+              placeholder="jane@acme.com"
+              type="email"
+              autoComplete="email"
+            />
+            <FormControl fullWidth sx={{ mt: '20px' }} variant="outlined">
+              <InputLabel htmlFor={passwordInputId}>Password</InputLabel>
+              <OutlinedInput
+                id={passwordInputId}
+                type={values.showPassword ? 'text' : 'password'}
+                value={values.password}
+                name="password"
+                onChange={handleChange('password')}
+                autoComplete="current-password"
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      aria-label="toggle password visibility"
+                      onClick={handleClickShowPassword}
+                      onMouseDown={handleMouseDownPassword}
+                      edge="end"
+                    >
+                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+              />
+            </FormControl>
+            <Button
+              fullWidth
+              type="submit"
+              variant="contained"
+              sx={{ mt: '40px' }}
+            >
+              Log In
+            </Button>
+          </Box>
+          <Grid container sx={{ mt: 2 }}>
+            <Grid item xs>
+              <Link href="#" variant="body2">
+                Forgot password?
+              </Link>
+            </Grid>
+            <Grid item>
+              <Link href="#" variant="body2">
+                {"Don't have an account? Sign Up"}
+              </Link>
+            </Grid>
+          </Grid>
         </Box>
-      </Formik>
-    </div>
+      </Grid>
+    </>
   );
 };

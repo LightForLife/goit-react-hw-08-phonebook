@@ -23,14 +23,8 @@ export const Header = () => {
       <AppBar position="static">
         <Toolbar>
           <Navigation />
-          {/* {isLoggedIn ? <UserMenu /> : <AuthNav />} */}
-          <Typography variant="h6" component="span" sx={{ flexGrow: 1 }}>
-            Home
-          </Typography>
           {isLoggedIn ? <UserMenu /> : <AuthNav />}
-
           {/* <Button color="inherit">Login</Button> */}
-          {/* <Navigation /> */}
         </Toolbar>
       </AppBar>
     </Box>

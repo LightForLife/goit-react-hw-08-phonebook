@@ -1,16 +1,18 @@
 import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
+import { Container } from '@mui/material';
 
 import { Header } from './AppBar/Header';
-import { Container } from './App.styled';
+// import { Container } from './App.styled';
 import { GlobalStyle } from 'styles/GlobalStyles';
 
 export const Layout = () => {
   return (
     <>
       {/* <GlobalStyle /> */}
-      <Container>
-        <Header />
+
+      <Header />
+      <Container maxWidth="lg" sx={{ mt: 8 }}>
         <Suspense fallback={null}>
           <Outlet />
         </Suspense>
