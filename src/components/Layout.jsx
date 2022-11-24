@@ -9,14 +9,14 @@ import { GlobalStyle } from 'styles/GlobalStyles';
 export const Layout = () => {
   return (
     <>
-      {/* <GlobalStyle /> */}
+      <GlobalStyle />
 
       <Header />
-      <Container maxWidth="lg" sx={{ mt: 8 }}>
-        <Suspense fallback={null}>
-          <Outlet />
-        </Suspense>
-      </Container>
+      {/* <Container maxWidth="md" sx={{ textAlign: 'center' }}> */}
+      <Suspense fallback={null}>
+        <Outlet />
+      </Suspense>
+      {/* </Container> */}
     </>
   );
 };

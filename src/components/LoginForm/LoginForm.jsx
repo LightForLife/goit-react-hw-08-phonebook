@@ -90,8 +90,8 @@ export const LoginForm = () => {
             onSubmit={handleSubmit}
             component="form"
             sx={{ mt: 4, mb: 1 }}
-            noValidate
-            autoComplete="off"
+            // noValidate
+            // autoComplete="off"
           >
             <TextField
               fullWidth
@@ -102,9 +102,12 @@ export const LoginForm = () => {
               placeholder="jane@acme.com"
               type="email"
               autoComplete="email"
+              required
             />
             <FormControl fullWidth sx={{ mt: '20px' }} variant="outlined">
-              <InputLabel htmlFor={passwordInputId}>Password</InputLabel>
+              <InputLabel htmlFor={passwordInputId} required>
+                Password
+              </InputLabel>
               <OutlinedInput
                 id={passwordInputId}
                 type={values.showPassword ? 'text' : 'password'}
@@ -112,6 +115,7 @@ export const LoginForm = () => {
                 name="password"
                 onChange={handleChange('password')}
                 autoComplete="current-password"
+                required
                 endAdornment={
                   <InputAdornment position="end">
                     <IconButton

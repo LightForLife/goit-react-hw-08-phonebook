@@ -19,14 +19,12 @@ export const Header = () => {
   const { isLoggedIn } = useAuth();
 
   return (
-    <Box>
-      <AppBar position="static">
-        <Toolbar>
-          <Navigation />
-          {isLoggedIn ? <UserMenu /> : <AuthNav />}
-          {/* <Button color="inherit">Login</Button> */}
-        </Toolbar>
-      </AppBar>
-    </Box>
+    <AppBar position="static">
+      <Toolbar>
+        <Navigation />
+        {isLoggedIn ? <UserMenu /> : <AuthNav />}
+        {/* <Button color="inherit">Login</Button> */}
+      </Toolbar>
+    </AppBar>
   );
 };

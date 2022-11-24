@@ -8,8 +8,6 @@ const authInitialState = {
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
-  registerIsLoading: false,
-  registerError: null,
 };
 
 const authSlice = createSlice({
