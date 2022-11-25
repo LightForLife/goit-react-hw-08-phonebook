@@ -15,14 +15,14 @@ export const schema = yup.object().shape({
       message:
         "Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan",
     })
-    .required('Name is a required field'),
+    .required('Please enter name'),
   number: yup
     .string()
     .matches(numberRules, {
       message:
         'Phone number must be digits and can contain spaces, dashes, parentheses and can start with +',
     })
-    .required('Number is a required field'),
+    .required('Please enter number'),
 });
 
 export const FormError = ({ name }) => {

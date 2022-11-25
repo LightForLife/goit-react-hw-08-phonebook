@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/contacts/selectors';
-import { Formik, Field } from 'formik';
+import { Formik, Field, Form } from 'formik';
 import { nanoid } from 'nanoid';
 import { addContact } from 'redux/contacts/operations';
 import { FormError, schema } from 'components/Validation/Validation';
@@ -65,7 +65,7 @@ export const ContactForm = () => {
       onSubmit={handleSubmit}
     >
       {() => (
-        <Box component="form" autoComplete="off">
+        <Form autoComplete="off">
           {/* <FormContainer> */}
           {/* <TextField
             label="Name"
@@ -117,7 +117,7 @@ export const ContactForm = () => {
           </FormLabel> */}
           {/* </FormContainer> */}
           <AddContactBtn type="submit">Add contact</AddContactBtn>
-        </Box>
+        </Form>
       )}
     </Formik>
   );

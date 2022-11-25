@@ -9,8 +9,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  background-image: linear-gradient(to bottom, #323663, #323663 80%, #83698C);
-  background-attachment: fixed;
+  /* background-image: linear-gradient(to bottom, #323663, #323663 80%, #83698C);
+  background-attachment: fixed; */
 
 }
 
