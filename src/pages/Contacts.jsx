@@ -8,8 +8,11 @@ import { SearchTitle } from 'components/App.styled';
 import { Filter } from 'components/FilterSearch/FilterSearch';
 import { Error } from 'components/Error/Error';
 import { Loader } from 'components/Loader/Loader';
-import { Box, Container } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
 import { red } from '@mui/material/colors';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
 
 export default function Contacts() {
   const dispatch = useDispatch();
@@ -24,7 +27,10 @@ export default function Contacts() {
     <Box component="main">
       <Container maxWidth="md" sx={{ textAlign: 'center', mt: 10 }}>
         <ContactForm />
-        <SearchTitle>Contacts</SearchTitle>
+        <Typography variant="h3" component="h3">
+          Contacts
+        </Typography>
+        {/* <SearchTitle>Contacts</SearchTitle> */}
         <Filter />
         {isLoading && !error && <Loader />}
         {error && <Error />}

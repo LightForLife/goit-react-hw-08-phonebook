@@ -20,7 +20,7 @@ export const Navigation = () => {
           textDecoration: 'none',
         }}
       >
-        <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+        {/* <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} /> */}
         <NavLink to="/">HOME</NavLink>
       </Typography>
       {isLoggedIn && (

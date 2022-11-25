@@ -18,6 +18,6 @@ export const MainTitle = styled.h1`
   color: #fff;
 `;
 
-export const SearchTitle = styled.h2`
-  color: #fff;
-`;
+// export const SearchTitle = styled.h2`
+//   color: #fff;
+// `;
