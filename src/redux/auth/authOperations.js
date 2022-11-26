@@ -28,7 +28,8 @@ export const register = createAsyncThunk(
       setAuthHeader(response.data.token);
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return alert('Try entering a different email');
+      // return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -46,7 +47,8 @@ export const logIn = createAsyncThunk(
       setAuthHeader(response.data.token);
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return alert('You entered an incorrect username or password');
+      // return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
@@ -61,7 +63,8 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
     // After successful registration, add the token to the HTTP header
     clearAuthHeader();
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    return alert('Sorry, there was a login error');
+    // return thunkAPI.rejectWithValue(error.message);
   }
 });
 
@@ -87,7 +90,8 @@ export const refreshUser = createAsyncThunk(
       const response = await axios.get('/users/current');
       return response.data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      return alert('User is not found');
+      // return thunkAPI.rejectWithValue(error.message);
     }
   }
 );

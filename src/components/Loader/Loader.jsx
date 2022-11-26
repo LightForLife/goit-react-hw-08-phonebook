@@ -1,6 +1,6 @@
-import { Box } from '@mui/material';
-import { RotatingLines } from 'react-loader-spinner';
 import { useSelector } from 'react-redux';
+import { RotatingLines } from 'react-loader-spinner';
+import { Box } from '@mui/material';
 import { selectIsLoading } from 'redux/contacts/contactsSelectors';
 
 export const Loader = () => {

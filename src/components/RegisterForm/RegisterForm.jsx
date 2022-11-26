@@ -1,13 +1,7 @@
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 import { nanoid } from 'nanoid';
-import { register } from 'redux/auth/authOperations';
-import * as React from 'react';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { logIn } from 'redux/auth/authOperations';
-import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
 import * as yup from 'yup';
 import {
   Box,
@@ -22,13 +16,18 @@ import {
   Avatar,
   Typography,
   Button,
-  Link,
+  FormHelperText,
 } from '@mui/material';
-import FormHelperText from '@mui/material/FormHelperText';
-import { object, string } from 'prop-types';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
+import { register } from 'redux/auth/authOperations';
 
 export const RegisterForm = () => {
-  const [values, setValues] = React.useState({
+  const dispatch = useDispatch();
+
+  // useState for show password
+  const [values, setValues] = useState({
     amount: '',
     password: '',
     weight: '',
@@ -39,8 +38,6 @@ export const RegisterForm = () => {
   const nameInputId = nanoid();
   const emailInputId = nanoid();
   const passwordInputId = nanoid();
-
-  const dispatch = useDispatch();
 
   // Formik
   const initialValues = {
@@ -55,8 +52,6 @@ export const RegisterForm = () => {
       email: value.email,
       password: value.password,
     };
-
-    console.log(body);
 
     dispatch(register(body));
 
@@ -137,7 +132,6 @@ export const RegisterForm = () => {
                   placeholder="Jane"
                   type="text"
                   autoComplete="off"
-                  // color="success"
                   required
                   error={Boolean(errors.name) && Boolean(touched.name)}
                   helperText={Boolean(touched.name) && errors.name}
@@ -151,7 +145,6 @@ export const RegisterForm = () => {
                   variant="outlined"
                   name="email"
                   placeholder="jane@acme.com"
-                  // className="validate"
                   type="email"
                   autoComplete="off"
                   required

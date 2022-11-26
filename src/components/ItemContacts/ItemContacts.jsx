@@ -1,31 +1,44 @@
 import { useDispatch } from 'react-redux';
-import PropTypes from 'prop-types';
-import { FaUserTimes } from 'react-icons/fa';
-import { deleteContact } from 'redux/contacts/contactsOperations';
-import {
-  ItemContact,
-  NameContact,
-  DeleteContactBtn,
-  TelContact,
-} from './ItemContacts.styled';
-import { LoadingButton } from '@mui/lab';
-import SendIcon from '@mui/icons-material/Send';
-import DeleteIcon from '@mui/icons-material/Delete';
-import SaveIcon from '@mui/icons-material/Save';
+import React from 'react';
+import { toast } from 'react-toastify';
 import { useSelector } from 'react-redux';
-import { selectIsLoading } from 'redux/contacts/contactsSelectors';
-import { selectIsLoadingDelete } from 'redux/contacts/contactsSelectors';
-import ListItem from '@mui/material/ListItem';
-import Divider from '@mui/material/Divider';
-import ListItemText from '@mui/material/ListItemText';
-import ListItemAvatar from '@mui/material/ListItemAvatar';
-import Avatar from '@mui/material/Avatar';
+import PropTypes from 'prop-types';
+import { LoadingButton } from '@mui/lab';
+import DeleteIcon from '@mui/icons-material/Delete';
 import ImageIcon from '@mui/icons-material/Image';
+import {
+  ListItem,
+  Divider,
+  ListItemText,
+  ListItemAvatar,
+  Avatar,
+} from '@mui/material';
+import { deleteContact } from 'redux/contacts/contactsOperations';
+import { selectIsLoadingDeleteBtn } from 'redux/contacts/contactsSelectors';
 
 export const ItemContacts = ({ contact }) => {
   const dispatch = useDispatch();
-  const handleDelete = () => dispatch(deleteContact(contact.id));
-  const isLoadingAdd = useSelector(selectIsLoadingDelete);
+
+  const isLoadingDelete = useSelector(selectIsLoadingDeleteBtn);
+
+  // notify for react-toastify
+  const notify = () =>
+    toast.info('Contact deleted!', {
+      position: 'bottom-left',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
+
+  const handleDelete = () => {
+    dispatch(deleteContact(contact.id));
+
+    notify();
+  };
 
   return (
     <>
@@ -39,7 +52,7 @@ export const ItemContacts = ({ contact }) => {
         <LoadingButton
           size="small"
           onClick={handleDelete}
-          loading={isLoadingAdd}
+          loading={isLoadingDelete}
           loadingPosition="start"
           startIcon={<DeleteIcon />}
           variant="contained"

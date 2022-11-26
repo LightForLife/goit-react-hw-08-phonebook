@@ -1,8 +1,7 @@
 import { useSelector } from 'react-redux';
+import { Box, List } from '@mui/material';
 import { ItemContacts } from 'components/ItemContacts/ItemContacts';
 import { selectVisibleContacts } from 'redux/filter/selectors';
-import List from '@mui/material/List';
-import { Box } from '@mui/material';
 
 export const ListContacts = () => {
   const contacts = useSelector(selectVisibleContacts);

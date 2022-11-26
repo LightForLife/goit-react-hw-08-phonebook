@@ -2,46 +2,39 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectContacts } from 'redux/contacts/contactsSelectors';
 import { Formik, Field, Form } from 'formik';
 import { nanoid } from 'nanoid';
+import { Box, TextField } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import LoadingButton from '@mui/lab/LoadingButton';
+import { toast } from 'react-toastify';
 import { addContact } from 'redux/contacts/contactsOperations';
 import { FormError, schema } from 'components/Validation/Validation';
-import { Grid, Box, Fab } from '@mui/material';
-import { useState } from 'react';
-import * as yup from 'yup';
-import {
-  FormBox,
-  AddContactBtn,
-  FormInput,
-  FormContainer,
-  FormLabel,
-} from './Form.styled';
-import AddIcon from '@mui/icons-material/Add';
-import { Container } from 'components/App.styled';
-import { TextField } from '@mui/material';
-import Alert from '@mui/material/Alert';
-import Snackbar from '@mui/material/Snackbar';
-import { Snack } from 'components/Snackbar/Snackbar';
-import LoadingButton from '@mui/lab/LoadingButton';
-import SendIcon from '@mui/icons-material/Send';
-import Icon from '@mui/material/Icon';
-import { green } from '@mui/material/colors';
-import { selectIsLoading } from 'redux/contacts/contactsSelectors';
-import { selectIsLoadingAdd } from 'redux/contacts/contactsSelectors';
-import Divider from '@mui/material/Divider';
+import { selectIsLoadingAddBtn } from 'redux/contacts/contactsSelectors';
 
 export const ContactForm = () => {
-  const [isSnackOpen, setSnackOpen] = useState(false);
-
   const nameInputId = nanoid();
   const numberInputId = nanoid();
 
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
-  const isLoadingAdd = useSelector(selectIsLoadingAdd);
+  const isLoadingAddBtn = useSelector(selectIsLoadingAddBtn);
 
   const initialValues = {
     name: '',
     number: '',
   };
+
+  // react-toastify
+  const notify = () =>
+    toast.success('Contact add!', {
+      position: 'bottom-left',
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
 
   const handleSubmit = (value, actions) => {
     const findName = contacts.find(
@@ -60,21 +53,10 @@ export const ContactForm = () => {
     };
 
     dispatch(addContact(body));
+    notify();
 
     actions.resetForm();
-    setSnackOpen(true);
   };
-
-  // const formik = useFormik({
-  //   initialValues: {
-  //     email: 'foobar@example.com',
-  //     password: 'foobar',
-  //   },
-  //   validationSchema: validationSchema,
-  //   onSubmit: values => {
-  //     alert(JSON.stringify(values, null, 2));
-  //   },
-  // });
 
   return (
     <>
@@ -112,7 +94,7 @@ export const ContactForm = () => {
                 sx={{ mt: 2 }}
                 type="submit"
                 endIcon={<AddIcon />}
-                loading={isLoadingAdd}
+                loading={isLoadingAddBtn}
                 loadingPosition="end"
                 variant="contained"
               >
@@ -122,11 +104,6 @@ export const ContactForm = () => {
           </Form>
         )}
       </Formik>
-
-      <Snack
-        isOpen={isSnackOpen}
-        handleClose={() => setSnackOpen(false)}
-      ></Snack>
     </>
   );
 };

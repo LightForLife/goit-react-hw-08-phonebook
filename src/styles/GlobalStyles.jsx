@@ -8,11 +8,6 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  /* background-image: linear-gradient(to bottom, #323663, #323663 80%, #83698C);
-  background-attachment: fixed; */
-  
-
 }
 
  code {
@@ -20,12 +15,6 @@ body {
     monospace;
 }
 
-/* * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  align-items: center;
-} */
 
 img,
 picture {
@@ -33,13 +22,6 @@ picture {
   max-width: 100%;
   height: auto;
 } 
-
-/* input,
-button,
-textarea,
-select {
-  font: inherit;
-} */
 
 p,
 h1,
@@ -61,9 +43,4 @@ a {
   color: inherit;
 }
 
-/* button {
-  border: none;
-  background-color: transparent;
-  cursor: pointer;
-} */
 `;

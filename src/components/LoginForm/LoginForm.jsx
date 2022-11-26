@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+import * as yup from 'yup';
+import { nanoid } from 'nanoid';
 import {
   Box,
   TextField,
@@ -14,16 +16,13 @@ import {
   Avatar,
   Typography,
   Button,
+  FormHelperText,
 } from '@mui/material';
-import * as yup from 'yup';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-
 import { Formik, Field, Form } from 'formik';
-import { nanoid } from 'nanoid';
 import { logIn } from 'redux/auth/authOperations';
-import FormHelperText from '@mui/material/FormHelperText';
 
 export const LoginForm = () => {
   const [values, setValues] = React.useState({
@@ -46,13 +45,10 @@ export const LoginForm = () => {
   };
 
   const handleSubmit = (value, actions) => {
-    console.log(value);
     const body = {
       email: value.email,
       password: value.password,
     };
-
-    console.log(body);
 
     dispatch(logIn(body));
 

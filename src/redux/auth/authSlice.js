@@ -1,4 +1,4 @@
-import { createSlice, isAnyOf } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { logIn, register, logOut, refreshUser } from './authOperations';
@@ -37,31 +37,11 @@ const authSlice = createSlice({
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.user = action.payload;
         state.isLoggedIn = true;
+        state.isRefreshing = false;
+      })
+      .addCase(refreshUser.rejected, state => {
+        state.isRefreshing = false;
       }),
-
-  // .addMatcher(
-  //   isAnyOf(
-  //     register.rejected,
-  //     logIn.rejected,
-  //     logOut.rejected,
-  //     refreshUser.rejected
-  //   ),
-  //   state => {
-  //     state.isLoggedIn = true;
-  //   }
-  // )
-  // .addMatcher(
-  //   isAnyOf(
-  //     register.pending,
-  //     logIn.pending,
-  //     logOut.pending,
-  //     refreshUser.pending
-  //   ),
-  //   (state, action) => {
-  //     state.registerIsLoading = false;
-  //     state.registerError = action.payload;
-  //   }
-  // ),
 });
 
 const authPersistConfig = {

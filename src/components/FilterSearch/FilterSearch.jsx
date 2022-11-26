@@ -1,11 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { filterContacts } from 'redux/filter/filterSlice';
-import { LabelFilter, FilterBox, InputFilter } from './FilterSearch.styled';
-import { Box, TextField } from '@mui/material';
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
-import SearchOutlined from '@mui/icons-material/Search';
-import Input from '@mui/material/Input';
+import { Box, Input } from '@mui/material';
 
 export const Filter = () => {
   const dispatch = useDispatch();

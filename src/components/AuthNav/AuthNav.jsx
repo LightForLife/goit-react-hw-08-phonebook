@@ -1,6 +1,5 @@
 import { NavLink } from 'react-router-dom';
-import { Box } from '@mui/material';
-import { Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 
 export const AuthNav = () => {
   return (
