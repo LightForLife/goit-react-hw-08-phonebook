@@ -19,30 +19,19 @@ export const Filter = () => {
 
   return (
     <Box
-      component="form"
+      component="div"
       sx={{
-        '& > :not(style)': { m: 1, width: '25ch' },
+        '& > :not(style)': { my: 3, width: '400px' },
       }}
       noValidate
       autoComplete="off"
     >
-      {/* <TextField
-        id="standard-basic"
-        type="search"
-        label="Enter name"
-        variant="standard"
-        onChange={handleChange}
-      /> */}
       <Input
-        placeholder="Enter name"
+        placeholder="Find contacts by name"
         inputProps={ariaLabel}
         type="search"
         onChange={handleChange}
       />
     </Box>
-    // <FilterBox>
-    //   <LabelFilter htmlFor="">Find contacts by name</LabelFilter>
-    //   <InputFilter type="text" onChange={handleChange} />
-    // </FilterBox>
   );
 };

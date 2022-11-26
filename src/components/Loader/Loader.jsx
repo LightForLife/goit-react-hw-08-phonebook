@@ -1,19 +1,19 @@
+import { Box } from '@mui/material';
 import { RotatingLines } from 'react-loader-spinner';
 import { useSelector } from 'react-redux';
 import { selectIsLoading } from 'redux/contacts/selectors';
-import { LoaderWrapper } from './Spinner.styled';
 
 export const Loader = () => {
   const isLoading = useSelector(selectIsLoading);
   return (
-    <LoaderWrapper>
+    <Box>
       <RotatingLines
-        strokeColor="#36d7b7"
+        strokeColor="#66B2FF"
         strokeWidth="4"
         animationDuration="0.75"
         width="58"
         visible={isLoading}
       />
-    </LoaderWrapper>
+    </Box>
   );
 };

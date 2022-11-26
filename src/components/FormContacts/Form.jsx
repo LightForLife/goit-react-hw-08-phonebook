@@ -19,6 +19,13 @@ import { TextField } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import Snackbar from '@mui/material/Snackbar';
 import { Snack } from 'components/Snackbar/Snackbar';
+import LoadingButton from '@mui/lab/LoadingButton';
+import SendIcon from '@mui/icons-material/Send';
+import Icon from '@mui/material/Icon';
+import { green } from '@mui/material/colors';
+import { selectIsLoading } from 'redux/contacts/selectors';
+import { selectIsLoadingAdd } from 'redux/contacts/selectors';
+import Divider from '@mui/material/Divider';
 
 export const ContactForm = () => {
   const [isSnackOpen, setSnackOpen] = useState(false);
@@ -28,6 +35,7 @@ export const ContactForm = () => {
 
   const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
+  const isLoadingAdd = useSelector(selectIsLoadingAdd);
 
   const initialValues = {
     name: '',
@@ -54,7 +62,6 @@ export const ContactForm = () => {
 
     actions.resetForm();
     setSnackOpen(true);
-    console.log('add');
   };
 
   // const formik = useFormik({
@@ -77,63 +84,44 @@ export const ContactForm = () => {
       >
         {() => (
           <Form autoComplete="off">
-            {/* <FormContainer> */}
-            {/* <TextField
-            label="Name"
-            name="name"
-            fullWidth
-            variant="outlined"
-            margin="dense"
-            color="primary"
-            // value={name}
-
-            // onBlur={props.handleBlur}
-            // helperText={<ErrorMessage name="name" />}
-            // error={props.errors.name && props.touched.name}
-            required
-          /> */}
-            {/* Second Way */}
-            <Field
-              as={TextField}
-              label="Name"
-              type="text"
-              id={nameInputId}
-              name="name"
-              fullWidth
-              variant="outlined"
-              margin="dense"
-              helperText={<FormError name="name" />}
-            />
-            <Field
-              as={TextField}
-              label="Number"
-              type="tel"
-              name="number"
-              id={numberInputId}
-              fullWidth
-              variant="outlined"
-              margin="dense"
-              helperText={<FormError name="number" />}
-            />
-            {/* <FormLabel htmlFor={nameInputId}>
-            Name
-            <FormInput type="text" name="name" id={nameInputId} />
-            <FormError name="name" />
-          </FormLabel>
-
-          <FormLabel htmlFor={numberInputId}>
-            Number
-            <FormInput type="tel" name="number" id={numberInputId} />
-            <FormError name="number" />
-          </FormLabel> */}
-            {/* </FormContainer> */}
-            <Fab type="submit" color="primary" aria-label="add">
-              <AddIcon />
-            </Fab>
-            {/* <AddContactBtn type="submit">Add contact</AddContactBtn> */}
+            <Box sx={{ px: 20, py: 4 }}>
+              <Field
+                as={TextField}
+                label="Name"
+                type="text"
+                id={nameInputId}
+                name="name"
+                fullWidth
+                variant="outlined"
+                margin="dense"
+                helperText={<FormError name="name" />}
+              />
+              <Field
+                as={TextField}
+                label="Number"
+                type="tel"
+                name="number"
+                id={numberInputId}
+                fullWidth
+                variant="outlined"
+                margin="dense"
+                helperText={<FormError name="number" />}
+              />
+              <LoadingButton
+                sx={{ mt: 2 }}
+                type="submit"
+                endIcon={<AddIcon />}
+                loading={isLoadingAdd}
+                loadingPosition="end"
+                variant="contained"
+              >
+                Add contact
+              </LoadingButton>
+            </Box>
           </Form>
         )}
       </Formik>
+
       <Snack
         isOpen={isSnackOpen}
         handleClose={() => setSnackOpen(false)}

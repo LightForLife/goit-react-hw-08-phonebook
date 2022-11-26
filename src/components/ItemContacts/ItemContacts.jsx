@@ -8,21 +8,47 @@ import {
   DeleteContactBtn,
   TelContact,
 } from './ItemContacts.styled';
+import { LoadingButton } from '@mui/lab';
+import SendIcon from '@mui/icons-material/Send';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SaveIcon from '@mui/icons-material/Save';
+import { useSelector } from 'react-redux';
+import { selectIsLoading } from 'redux/contacts/selectors';
+import { selectIsLoadingDelete } from 'redux/contacts/selectors';
+import ListItem from '@mui/material/ListItem';
+import Divider from '@mui/material/Divider';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import Avatar from '@mui/material/Avatar';
+import ImageIcon from '@mui/icons-material/Image';
 
 export const ItemContacts = ({ contact }) => {
   const dispatch = useDispatch();
   const handleDelete = () => dispatch(deleteContact(contact.id));
+  const isLoadingAdd = useSelector(selectIsLoadingDelete);
 
   return (
-    <ItemContact id={contact.id}>
-      <NameContact>
-        {contact.name}
-        <DeleteContactBtn onClick={handleDelete}>
-          <FaUserTimes size={18} />
-        </DeleteContactBtn>
-      </NameContact>
-      <TelContact>{contact.number}</TelContact>
-    </ItemContact>
+    <>
+      <ListItem id={contact.id}>
+        <ListItemAvatar>
+          <Avatar>
+            <ImageIcon />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText primary={contact.name} secondary={contact.number} />
+        <LoadingButton
+          size="small"
+          onClick={handleDelete}
+          loading={isLoadingAdd}
+          loadingPosition="start"
+          startIcon={<DeleteIcon />}
+          variant="contained"
+        >
+          Delete
+        </LoadingButton>
+      </ListItem>
+      <Divider component="li" />
+    </>
   );
 };
 

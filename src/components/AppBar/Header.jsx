@@ -11,6 +11,7 @@ import {
   Typography,
   Button,
   IconButton,
+  Container,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import { ShoppingBasket } from '@mui/icons-material';
@@ -19,11 +20,10 @@ export const Header = () => {
   const { isLoggedIn } = useAuth();
 
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Toolbar>
         <Navigation />
         {isLoggedIn ? <UserMenu /> : <AuthNav />}
-        {/* <Button color="inherit">Login</Button> */}
       </Toolbar>
     </AppBar>
   );

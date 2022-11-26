@@ -11,6 +11,7 @@ body {
 
   /* background-image: linear-gradient(to bottom, #323663, #323663 80%, #83698C);
   background-attachment: fixed; */
+  
 
 }
 
@@ -27,8 +28,7 @@ body {
 } */
 
 img,
-picture,
-svg {
+picture {
   display: block;
   max-width: 100%;
   height: auto;

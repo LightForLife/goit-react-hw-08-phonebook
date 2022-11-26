@@ -6,6 +6,8 @@ const contactsInitialState = {
   items: [],
   isLoading: false,
   error: null,
+  isLoadingAdd: false,
+  isLoadingDelete: false,
 };
 
 const actions = [fetchContacts, addContact, deleteContact];
@@ -17,10 +19,12 @@ const fetchContactsSuccessReduceer = (state, action) => {
 };
 
 const addContactsSuccessReduceer = (state, action) => {
+  state.isLoadingAdd = true;
   state.items.unshift(action.payload);
 };
 
 const deleteContactsSuccessReduceer = (state, action) => {
+  state.isLoadingDelete = true;
   const index = state.items.findIndex(
     contact => contact.id === action.payload.id
   );
@@ -29,15 +33,21 @@ const deleteContactsSuccessReduceer = (state, action) => {
 
 const anyPendingReducer = state => {
   state.isLoading = true;
+  state.isLoadingAdd = true;
+  state.isLoadingDelete = true;
 };
 
 const anyRejectedReducer = (state, action) => {
   state.isLoading = false;
+  state.isLoadingAdd = false;
+  state.isLoadingDelete = false;
   state.error = action.payload;
 };
 
 const anyFulfilledReducer = state => {
   state.isLoading = false;
+  state.isLoadingAdd = false;
+  state.isLoadingDelete = false;
   state.error = null;
 };
 

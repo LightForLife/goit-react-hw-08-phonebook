@@ -73,7 +73,16 @@ export const RegisterForm = () => {
 
   return (
     <>
-      <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
+      <Grid
+        item
+        xs={12}
+        sm={8}
+        md={5}
+        component={Paper}
+        elevation={6}
+        square
+        sx={{ mt: 20 }}
+      >
         <Box
           sx={{
             py: 8,

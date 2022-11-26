@@ -1,10 +1,27 @@
 import { NavLink } from 'react-router-dom';
+import { Box } from '@mui/material';
+import { Typography } from '@mui/material';
 
 export const AuthNav = () => {
   return (
-    <div>
-      <NavLink to="/register">Register</NavLink>
-      <NavLink to="/login">Log In</NavLink>
-    </div>
+    <Box>
+      <Typography
+        component="span"
+        sx={{
+          mr: 3,
+          textTransform: 'uppercase',
+        }}
+      >
+        <NavLink to="/register">Register</NavLink>
+      </Typography>
+      <Typography
+        component="span"
+        sx={{
+          textTransform: 'uppercase',
+        }}
+      >
+        <NavLink to="/login">Log In</NavLink>
+      </Typography>
+    </Box>
   );
 };
