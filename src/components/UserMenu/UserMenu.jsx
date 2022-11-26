@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { logOut } from 'redux/auth/operations';
+import { logOut } from 'redux/auth/authOperations';
 import { useAuth } from 'hooks/useAuth';
 import { Box } from '@mui/material';
 import MenuItem from '@mui/material/MenuItem';

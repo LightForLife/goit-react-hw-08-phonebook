@@ -1,7 +1,7 @@
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { FaUserTimes } from 'react-icons/fa';
-import { deleteContact } from 'redux/contacts/operations';
+import { deleteContact } from 'redux/contacts/contactsOperations';
 import {
   ItemContact,
   NameContact,
@@ -13,8 +13,8 @@ import SendIcon from '@mui/icons-material/Send';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SaveIcon from '@mui/icons-material/Save';
 import { useSelector } from 'react-redux';
-import { selectIsLoading } from 'redux/contacts/selectors';
-import { selectIsLoadingDelete } from 'redux/contacts/selectors';
+import { selectIsLoading } from 'redux/contacts/contactsSelectors';
+import { selectIsLoadingDelete } from 'redux/contacts/contactsSelectors';
 import ListItem from '@mui/material/ListItem';
 import Divider from '@mui/material/Divider';
 import ListItemText from '@mui/material/ListItemText';

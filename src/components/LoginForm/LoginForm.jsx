@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
+import { NavLink } from 'react-router-dom';
 import {
   Box,
   TextField,
@@ -13,15 +14,16 @@ import {
   Avatar,
   Typography,
   Button,
-  Link,
 } from '@mui/material';
+import * as yup from 'yup';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 
 import { Formik, Field, Form } from 'formik';
 import { nanoid } from 'nanoid';
-import { logIn } from 'redux/auth/operations';
+import { logIn } from 'redux/auth/authOperations';
+import FormHelperText from '@mui/material/FormHelperText';
 
 export const LoginForm = () => {
   const [values, setValues] = React.useState({
@@ -37,18 +39,25 @@ export const LoginForm = () => {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    const form = event.currentTarget;
+  // Formik
+  const initialValues = {
+    email: '',
+    password: '',
+  };
 
+  const handleSubmit = (value, actions) => {
+    console.log(value);
     const body = {
-      email: form.elements.email.value,
-      password: form.elements.password.value,
+      email: value.email,
+      password: value.password,
     };
+
     console.log(body);
 
     dispatch(logIn(body));
-    form.reset();
+
+    actions.resetForm();
+
     setValues({ ...values, password: '' });
   };
 
@@ -95,70 +104,96 @@ export const LoginForm = () => {
             Sign in
           </Typography>
 
-          <Box
+          <Formik
             onSubmit={handleSubmit}
-            component="form"
-            sx={{ mt: 4, mb: 1 }}
-            // noValidate
-            // autoComplete="off"
+            initialValues={initialValues}
+            validationSchema={yup.object().shape({
+              email: yup
+                .string()
+                .required('Please enter email')
+                .email('Invalid email'),
+              password: yup.string().required('Please enter password'),
+              // .min(7, 'Password should be minimum 7 characters long'),
+            })}
           >
-            <TextField
-              fullWidth
-              id={emailInputId}
-              label="Email"
-              variant="outlined"
-              name="email"
-              placeholder="jane@acme.com"
-              type="email"
-              autoComplete="email"
-              required
-            />
-            <FormControl fullWidth sx={{ mt: '20px' }} variant="outlined">
-              <InputLabel htmlFor={passwordInputId} required>
-                Password
-              </InputLabel>
-              <OutlinedInput
-                id={passwordInputId}
-                type={values.showPassword ? 'text' : 'password'}
-                value={values.password}
-                name="password"
-                onChange={handleChange('password')}
-                autoComplete="current-password"
-                required
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="Password"
-              />
-            </FormControl>
-            <Button
-              fullWidth
-              type="submit"
-              variant="contained"
-              sx={{ mt: '40px' }}
-            >
-              Log In
-            </Button>
-          </Box>
+            {({ errors, touched }) => (
+              <Form autoComplete="off">
+                <Field
+                  as={TextField}
+                  sx={{ mt: '20px' }}
+                  fullWidth
+                  id={emailInputId}
+                  label="Email"
+                  variant="outlined"
+                  name="email"
+                  placeholder="jane@acme.com"
+                  type="email"
+                  autoComplete="off"
+                  error={Boolean(errors.email) && Boolean(touched.email)}
+                  helperText={Boolean(touched.email) && errors.email}
+                />
+                <Field
+                  as={FormControl}
+                  fullWidth
+                  sx={{ mt: '20px' }}
+                  error={Boolean(errors.password) && Boolean(touched.password)}
+                  helpertext={touched.password && errors.password}
+                >
+                  <InputLabel htmlFor={passwordInputId}>Password</InputLabel>
+                  <OutlinedInput
+                    id={passwordInputId}
+                    type={values.showPassword ? 'text' : 'password'}
+                    value={values.password}
+                    name="password"
+                    onChange={handleChange('password')}
+                    autoComplete="current-password"
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {values.showPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Password"
+                  />
+                  {errors.password && (
+                    <FormHelperText id="component-error-text">
+                      {errors.password}
+                    </FormHelperText>
+                  )}
+                </Field>
+                <Button
+                  fullWidth
+                  type="submit"
+                  variant="contained"
+                  sx={{ mt: '40px' }}
+                >
+                  Log In
+                </Button>
+              </Form>
+            )}
+          </Formik>
           <Grid container sx={{ mt: 2 }}>
             <Grid item xs>
-              <Link href="#" variant="body2">
-                Forgot password?
-              </Link>
+              <Typography variant="body2">
+                <NavLink>Forgot password?</NavLink>
+              </Typography>
             </Grid>
             <Grid item>
-              <Link href="#" variant="body2">
-                {"Don't have an account? Sign Up"}
-              </Link>
+              <Typography variant="body2">
+                <NavLink to="/register">
+                  {"Don't have an account? Sign Up"}
+                </NavLink>
+              </Typography>
             </Grid>
           </Grid>
         </Box>

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchContacts } from 'redux/contacts/operations';
-import { selectError, selectIsLoading } from 'redux/contacts/selectors';
+import { fetchContacts } from 'redux/contacts/contactsOperations';
+import { selectError, selectIsLoading } from 'redux/contacts/contactsSelectors';
 import { ContactForm } from 'components/FormContacts/Form';
 import { ListContacts } from 'components/ListContacts/ListContacts';
 import { SearchTitle } from 'components/App.styled';
@@ -32,17 +32,14 @@ export default function Contacts() {
             Phone Boock
           </Typography>
           <Divider />
-          {/* <Container maxWidth="md" sx={{ textAlign: 'center', mt: 10 }}> */}
           <ContactForm />
           <Typography variant="h4" component="h3">
             My Contacts
           </Typography>
-          {/* <SearchTitle>Contacts</SearchTitle> */}
           <Filter />
           {isLoading && !error && <Loader />}
           {error && <Error />}
           {!isLoading && <ListContacts />}
-          {/* </Container> */}
         </Box>
       </Container>
     </Box>

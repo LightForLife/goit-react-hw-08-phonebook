@@ -1,11 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { selectContacts } from 'redux/contacts/selectors';
+import { selectContacts } from 'redux/contacts/contactsSelectors';
 import { Formik, Field, Form } from 'formik';
 import { nanoid } from 'nanoid';
-import { addContact } from 'redux/contacts/operations';
+import { addContact } from 'redux/contacts/contactsOperations';
 import { FormError, schema } from 'components/Validation/Validation';
 import { Grid, Box, Fab } from '@mui/material';
 import { useState } from 'react';
+import * as yup from 'yup';
 import {
   FormBox,
   AddContactBtn,
@@ -23,8 +24,8 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import SendIcon from '@mui/icons-material/Send';
 import Icon from '@mui/material/Icon';
 import { green } from '@mui/material/colors';
-import { selectIsLoading } from 'redux/contacts/selectors';
-import { selectIsLoadingAdd } from 'redux/contacts/selectors';
+import { selectIsLoading } from 'redux/contacts/contactsSelectors';
+import { selectIsLoadingAdd } from 'redux/contacts/contactsSelectors';
 import Divider from '@mui/material/Divider';
 
 export const ContactForm = () => {
@@ -48,8 +49,8 @@ export const ContactForm = () => {
     );
 
     if (findName) {
-      <Alert severity="error">This is an error alert — check it out!</Alert>;
-      // alert(`${value.name} is already in contacts`);
+      // <Alert severity="error">This is an error alert — check it out!</Alert>;
+      alert(`${value.name} is already in contacts`);
       return;
     }
 

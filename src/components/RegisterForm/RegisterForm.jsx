@@ -1,14 +1,14 @@
 import { useDispatch } from 'react-redux';
 import { Formik, Field, Form } from 'formik';
 import { nanoid } from 'nanoid';
-import { register } from 'redux/auth/operations';
+import { register } from 'redux/auth/authOperations';
 import * as React from 'react';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import { logIn } from 'redux/auth/operations';
+import { logIn } from 'redux/auth/authOperations';
 import AssignmentIndIcon from '@mui/icons-material/AssignmentInd';
-
+import * as yup from 'yup';
 import {
   Box,
   TextField,
@@ -24,6 +24,8 @@ import {
   Button,
   Link,
 } from '@mui/material';
+import FormHelperText from '@mui/material/FormHelperText';
+import { object, string } from 'prop-types';
 
 export const RegisterForm = () => {
   const [values, setValues] = React.useState({
@@ -40,22 +42,29 @@ export const RegisterForm = () => {
 
   const dispatch = useDispatch();
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    const form = event.currentTarget;
+  // Formik
+  const initialValues = {
+    name: '',
+    email: '',
+    password: '',
+  };
 
+  const handleSubmit = (value, actions) => {
     const body = {
-      name: form.elements.name.value,
-      email: form.elements.email.value,
-      password: form.elements.password.value,
+      name: value.name,
+      email: value.email,
+      password: value.password,
     };
+
     console.log(body);
 
     dispatch(register(body));
-    form.reset();
+
+    actions.resetForm();
     setValues({ ...values, password: '' });
   };
 
+  // Show password
   const handleChange = prop => event => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -95,126 +104,118 @@ export const RegisterForm = () => {
           <Avatar sx={{ m: 1, bgcolor: 'green' }}>
             <AssignmentIndIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component="h1" variant="h5" sx={{ mb: 4 }}>
             Reqistration
           </Typography>
-
-          <Box
+          <Formik
+            initialValues={initialValues}
+            validationSchema={yup.object().shape({
+              name: yup
+                .string()
+                .required('Please enter name')
+                .min(2, 'Name too short'),
+              email: yup
+                .string()
+                .required('Please enter email')
+                .email('Invalid email'),
+              password: yup
+                .string()
+                .required('Please enter password')
+                .min(7, 'Password should be minimum 7 characters long'),
+            })}
             onSubmit={handleSubmit}
-            component="form"
-            sx={{ mt: 4 }}
-            // noValidate
-            autoComplete="off"
           >
-            <TextField
-              fullWidth
-              id={nameInputId}
-              label="Name"
-              variant="outlined"
-              name="name"
-              placeholder="Jane"
-              type="text"
-              autoComplete="off"
-              required
-            />
-            <TextField
-              sx={{ mt: '20px' }}
-              fullWidth
-              id={emailInputId}
-              label="Email"
-              variant="outlined"
-              name="email"
-              placeholder="jane@acme.com"
-              className="validate"
-              type="email"
-              autoComplete="off"
-              required
-            />
-            <FormControl fullWidth sx={{ mt: '20px' }} variant="outlined">
-              <InputLabel htmlFor={passwordInputId} required>
-                Password
-              </InputLabel>
-              <OutlinedInput
-                id={passwordInputId}
-                type={values.showPassword ? 'text' : 'password'}
-                value={values.password}
-                name="password"
-                onChange={handleChange('password')}
-                autoComplete="current-password"
-                required
-                endAdornment={
-                  <InputAdornment position="end">
-                    <IconButton
-                      aria-label="toggle password visibility"
-                      onClick={handleClickShowPassword}
-                      onMouseDown={handleMouseDownPassword}
-                      edge="end"
-                    >
-                      {values.showPassword ? <VisibilityOff /> : <Visibility />}
-                    </IconButton>
-                  </InputAdornment>
-                }
-                label="Password"
-              />
-            </FormControl>
-            <Button
-              fullWidth
-              type="submit"
-              variant="contained"
-              sx={{ mt: '40px' }}
-            >
-              Register
-            </Button>
-          </Box>
+            {({ errors, isValid, touched, dirty }) => (
+              <Form autoComplete="off">
+                <Field
+                  as={TextField}
+                  fullWidth
+                  id={nameInputId}
+                  label="Name"
+                  variant="outlined"
+                  name="name"
+                  placeholder="Jane"
+                  type="text"
+                  autoComplete="off"
+                  // color="success"
+                  required
+                  error={Boolean(errors.name) && Boolean(touched.name)}
+                  helperText={Boolean(touched.name) && errors.name}
+                />
+                <Field
+                  as={TextField}
+                  sx={{ mt: '20px' }}
+                  fullWidth
+                  id={emailInputId}
+                  label="Email"
+                  variant="outlined"
+                  name="email"
+                  placeholder="jane@acme.com"
+                  // className="validate"
+                  type="email"
+                  autoComplete="off"
+                  required
+                  error={Boolean(errors.email) && Boolean(touched.email)}
+                  helperText={Boolean(touched.email) && errors.email}
+                />
+                <Field
+                  as={FormControl}
+                  fullWidth
+                  sx={{ mt: '20px' }}
+                  error={Boolean(errors.password) && Boolean(touched.password)}
+                  helpertext={touched.password && errors.password}
+                >
+                  <InputLabel htmlFor={passwordInputId} required>
+                    Password
+                  </InputLabel>
+                  <OutlinedInput
+                    id={passwordInputId}
+                    type={values.showPassword ? 'text' : 'password'}
+                    value={values.password}
+                    name="password"
+                    onChange={handleChange('password')}
+                    autoComplete="current-password"
+                    aria-describedby="component-error-text"
+                    required
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <IconButton
+                          aria-label="toggle password visibility"
+                          onClick={handleClickShowPassword}
+                          onMouseDown={handleMouseDownPassword}
+                          edge="end"
+                        >
+                          {values.showPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    }
+                    label="Password"
+                  />
+                  {errors.password && (
+                    <FormHelperText id="component-error-text">
+                      {errors.password}
+                    </FormHelperText>
+                  )}
+                </Field>
+
+                <Button
+                  fullWidth
+                  type="submit"
+                  variant="contained"
+                  sx={{ mt: '40px' }}
+                  disabled={!dirty || !isValid}
+                >
+                  Register
+                </Button>
+              </Form>
+            )}
+          </Formik>
         </Box>
       </Grid>
     </>
-    // <div>
-    //   <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-    //     <Box
-    //       component="form"
-    //       sx={{
-    //         '& .MuiTextField-root': { m: 1, width: '25ch' },
-    //       }}
-    //       noValidate
-    //       autoComplete="off"
-    //     >
-    //       <label htmlFor={nameInputId}></label>
-    //       <TextField
-    //         // id="outlined-basic"
-    //         label="Username"
-    //         variant="outlined"
-    //         id={nameInputId}
-    //         name="userName"
-    //         placeholder="Jane"
-    //         type="text"
-    //         autoComplete="off"
-    //       />
-
-    //       <label htmlFor={emailInputId}></label>
-    //       <TextField
-    //         id={emailInputId}
-    //         label="Email"
-    //         variant="outlined"
-    //         name="email"
-    //         placeholder="jane@acme.com"
-    //         type="email"
-    //         autoComplete="on"
-    //       />
-
-    //       <label htmlFor={passwordInputId}></label>
-    //       <TextField
-    //         id={passwordInputId}
-    //         label="Password"
-    //         variant="outlined"
-    //         name="password"
-    //         // placeholder="Doe"
-    //         type="password"
-    //         autoComplete="current-password"
-    //       />
-    //       <button type="submit">Register</button>
-    //     </Box>
-    //   </Formik>
-    // </div>
   );
 };

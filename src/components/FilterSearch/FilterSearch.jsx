@@ -21,7 +21,7 @@ export const Filter = () => {
     <Box
       component="div"
       sx={{
-        '& > :not(style)': { my: 3, width: '400px' },
+        '& > :not(style)': { my: 3, width: '660px' },
       }}
       noValidate
       autoComplete="off"
@@ -30,6 +30,7 @@ export const Filter = () => {
         placeholder="Find contacts by name"
         inputProps={ariaLabel}
         type="search"
+        fullWidth
         onChange={handleChange}
       />
     </Box>

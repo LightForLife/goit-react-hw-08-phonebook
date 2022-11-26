@@ -1,7 +1,7 @@
 import { Box } from '@mui/material';
 import { RotatingLines } from 'react-loader-spinner';
 import { useSelector } from 'react-redux';
-import { selectIsLoading } from 'redux/contacts/selectors';
+import { selectIsLoading } from 'redux/contacts/contactsSelectors';
 
 export const Loader = () => {
   const isLoading = useSelector(selectIsLoading);
