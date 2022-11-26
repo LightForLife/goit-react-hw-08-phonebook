@@ -24,9 +24,21 @@ export const ContactForm = () => {
   };
 
   // react-toastify
-  const notify = () =>
+  const notifyAddContact = () =>
     toast.success('Contact add!', {
       position: 'bottom-left',
+      autoClose: 2000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: 'colored',
+    });
+
+  const notifyErrorAddContact = nameContact =>
+    toast.error(`${nameContact} is already in contacts`, {
+      position: 'top-center',
       autoClose: 3000,
       hideProgressBar: false,
       closeOnClick: true,
@@ -42,8 +54,8 @@ export const ContactForm = () => {
     );
 
     if (findName) {
-      // <Alert severity="error">This is an error alert — check it out!</Alert>;
-      alert(`${value.name} is already in contacts`);
+      notifyErrorAddContact(value.name);
+      // alert(`${value.name} is already in contacts`);
       return;
     }
 
@@ -53,7 +65,7 @@ export const ContactForm = () => {
     };
 
     dispatch(addContact(body));
-    notify();
+    notifyAddContact();
 
     actions.resetForm();
   };
@@ -67,7 +79,7 @@ export const ContactForm = () => {
       >
         {() => (
           <Form autoComplete="off">
-            <Box sx={{ px: 20, py: 4 }}>
+            <Box sx={{ px: 20, py: 4, mt: 4 }}>
               <Field
                 as={TextField}
                 label="Name"

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Container, Typography, Divider } from '@mui/material';
+import { Box, Container, Typography, Divider, Paper } from '@mui/material';
 import { fetchContacts } from 'redux/contacts/contactsOperations';
 import { selectError, selectIsLoading } from 'redux/contacts/contactsSelectors';
 import { ContactForm } from 'components/FormContacts/Form';
@@ -23,7 +23,7 @@ export default function Contacts() {
       <Container maxWidth="md" sx={{ textAlign: 'center', mt: 10 }}>
         <Box sx={{ pt: 4 }}>
           <Typography variant="h2" component="h1">
-            Phone Boock
+            Phone Book
           </Typography>
           <Divider />
           <ContactForm />

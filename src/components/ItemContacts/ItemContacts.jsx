@@ -25,7 +25,7 @@ export const ItemContacts = ({ contact }) => {
   const notify = () =>
     toast.info('Contact deleted!', {
       position: 'bottom-left',
-      autoClose: 3000,
+      autoClose: 2000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
