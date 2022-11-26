@@ -108,7 +108,7 @@ export const LoginForm = () => {
                 .string()
                 .required('Please enter email')
                 .email('Invalid email'),
-              password: yup.string().required('Please enter password'),
+              password: yup.string().required('Password is a required field'),
               // .min(7, 'Password should be minimum 7 characters long'),
             })}
           >
@@ -150,6 +150,7 @@ export const LoginForm = () => {
                           onClick={handleClickShowPassword}
                           onMouseDown={handleMouseDownPassword}
                           edge="end"
+                          aria-describedby="component-error-text"
                         >
                           {values.showPassword ? (
                             <VisibilityOff />
