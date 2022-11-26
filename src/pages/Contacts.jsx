@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Box, Container, Typography, Divider, Paper } from '@mui/material';
+import { Box, Container, Typography, Divider } from '@mui/material';
 import { fetchContacts } from 'redux/contacts/contactsOperations';
 import { selectError, selectIsLoading } from 'redux/contacts/contactsSelectors';
 import { ContactForm } from 'components/FormContacts/Form';
