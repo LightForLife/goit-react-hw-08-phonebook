@@ -52,9 +52,8 @@ export const LoginForm = () => {
 
     dispatch(logIn(body));
 
-    actions.resetForm();
-
-    setValues({ ...values, password: '' });
+    // actions.resetForm();
+    // setValues({ ...values, password: '' });
   };
 
   const handleChange = prop => event => {
@@ -179,20 +178,13 @@ export const LoginForm = () => {
               </Form>
             )}
           </Formik>
-          <Grid container sx={{ mt: 2 }}>
-            <Grid item xs>
-              <Typography variant="body2">
-                <NavLink>Forgot password?</NavLink>
-              </Typography>
-            </Grid>
-            <Grid item>
-              <Typography variant="body2">
-                <NavLink to="/register">
-                  {"Don't have an account? Sign Up"}
-                </NavLink>
-              </Typography>
-            </Grid>
-          </Grid>
+          <Box container sx={{ mt: 2 }}>
+            <Typography variant="body2">
+              <NavLink to="/register">
+                {"Don't have an account? Sign Up"}
+              </NavLink>
+            </Typography>
+          </Box>
         </Box>
       </Grid>
     </>

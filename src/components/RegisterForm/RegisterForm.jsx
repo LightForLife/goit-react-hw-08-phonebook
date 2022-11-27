@@ -55,8 +55,8 @@ export const RegisterForm = () => {
 
     dispatch(register(body));
 
-    actions.resetForm();
-    setValues({ ...values, password: '' });
+    // actions.resetForm();
+    // setValues({ ...values, password: '' });
   };
 
   // Show password
